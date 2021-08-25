@@ -15,17 +15,17 @@ ob_start(); ?>
 <div class="plan-navtab">
 
     <div class="nav-wrapper d-flex justify-content-center mb-70" data-animate="fadeInUp" data-delay=".3">
-		    <ul class="nav nav-tabs justify-content-center" role="tablist">
-			      <li class="nav-item">
-				        <a class="active" data-toggle="tab" href="#monthly" role="tab">Monthly</a>
-		    	  </li>
-    			  <li class="nav-item">
-				        <a data-toggle="tab" href="#quarterly" role="tab">Quarterly</a>
-			      </li>
+        <ul class="nav nav-tabs justify-content-center" role="tablist">
             <li class="nav-item">
-				        <a data-toggle="tab" href="#yearly" role="tab">Yearly</a>
-			      </li>
-		    </ul>
+                <a class="active" data-toggle="tab" href="#monthly" role="tab">Monthly</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#quarterly" role="tab">Quarterly</a>
+            </li>
+            <li class="nav-item">
+                <a data-toggle="tab" href="#yearly" role="tab">Yearly</a>
+            </li>
+        </ul>
     </div>
 
     <div class="tab-content">
@@ -35,7 +35,7 @@ ob_start(); ?>
 
                 <?php foreach ( $products as $plan ) {
                     $freq = 'monthly';
-                    include(__DIR__.'/includes/single-plan.php');
+                    include('single-product.inc.php');
                 } ?>
                 
             </div>
@@ -46,7 +46,7 @@ ob_start(); ?>
 
                 <?php foreach ( $products as $plan ) {
                     $freq = 'quarterly';
-                    include(__DIR__.'/includes/single-plan.php');
+                    include('single-product.inc.php');
                 } ?>
                 
             </div>
@@ -57,7 +57,7 @@ ob_start(); ?>
 
                 <?php foreach ( $products as $plan ) {
                     $freq = 'yearly';
-                    include(__DIR__.'/includes/single-plan.php');
+                    include('single-product.inc.php');
                 } ?>
                 
             </div>
