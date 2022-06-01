@@ -77,6 +77,67 @@ function gs_whmcs_filter( string $content ) : string
 }
 
 /**---------------------------------------------------------------------------------------------------------------------
+ * testConnect()
+ * Tests the connectivity to the configured WHMCS installation and if successful, returns some information about it.
+ * 
+ * @return array $testConnect - Array containing connectivity status and whmcs information.
+ */
+function gs_whmcs_testConnect() : array
+{
+    $testConnect = array( 'result' => "failed" );
+    
+    // We'll require the API for this, let's bring that in
+    require_once( 'api.php' );
+    
+    // Test for Version config value
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "Version"] );
+    if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
+        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) )
+            $testConnect['result'] = "success";
+            $testConnect['whmcs']['version'] = $apiCallResult['value'];
+        }
+    }
+    
+    // Test for SystemURL Config Value
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "SystemURL"] );
+    if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
+        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
+            $testConnect['result'] = "success";
+            $testConnect['whmcs']['system_url'] = $apiCallResult['value'];
+        }
+    }
+    
+    // Test for MaintenanceMode config value
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "MaintenanceMode"] );
+    if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
+        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
+            $testConnect['result'] = "success";
+            $testConnect['whmcs']['maintenance_mode'] = $apiCallResult['value'];
+        }
+    }
+    
+    // Test for CompanyName config value
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "CompanyName"] );
+    if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
+        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
+            $testConnect['result'] = "success";
+            $testConnect['whmcs']['company_name'] = $apiCallResult['value'];
+        }
+    }
+    
+    // Test for LogoURL Config Value
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "LogoURL"] );
+    if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
+        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
+            $testConnect['result'] = "success";
+            $testConnect['whmcs']['logo_url'] = $apiCallResult['value'];
+        }
+    }
+    
+    return $testConnect;
+}
+
+/**---------------------------------------------------------------------------------------------------------------------
  * displayMessage()
  * Displays a Success/Error/Warning/Info message only on the GS backend
  * 

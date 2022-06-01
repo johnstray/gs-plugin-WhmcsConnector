@@ -42,5 +42,15 @@ $i18n = array (
     
     'UI_SAVE_BUTTON' => "Save Settings",
     'UI_CANCEL_BUTTON' => "Cancel",
+    'UI_TEST_CONNECT_BUTTON' => "Test Connection",
+    'UI_TEST_CONNECT_BUTTON_HINT' => "Test the connection to the WHMCS instance using the saved settings",
+    
+    'UI_TC_CONNECT_OK_LABEL' => "Successfully connected to WHMCS instance!",
+    'UI_TC_CONNECT_FAIL_LABEL' => "Failed to connect to WHMCS instance.",
+    'UI_TC_LOGO_PREALT' => "Company logo for: ",
+    'UI_TC_VERSION_LABEL' => "Detected WHMCS Version",
+    'UI_TC_MAINTENANCE_MODE_LABEL' => "Maintenance Mode",
+    'UI_TC_ACCESS_BUTTON' => "Go to WHMCS instance",
+    'UI_TC_ACCESS_BUTTON_HINT' => "Visit the site of the configured WHMCS instance",
     
 );
