@@ -9,14 +9,27 @@
 # Settings file location
 define( 'WHMCSSETTINGS', GSDATAOTHERPATH . 'whmcsconnector.xml' );
 
-function gs_whmcs_main()
+/**---------------------------------------------------------------------------------------------------------------------
+ * main()
+ * The main entry point for the GS backend. Will load the settings management functions and page.
+ * 
+ * @return void
+ */
+function gs_whmcs_main() : void
 {
     // Load the settings page
     require_once( WHMCSPATH . 'settings.php' );
     gs_whmcs_settings();
 }
 
-function gs_whmcs_filter( $content ) : string
+/**---------------------------------------------------------------------------------------------------------------------
+ * filter()
+ * Filters the page output content, looking for special tags that will then be replaced by a function's output
+ * 
+ * @param string $content - The input page content to be filtered
+ * @return string $content - Filtered content with special tags replaced with plugin content
+ */
+function gs_whmcs_filter( string $content ) : string
 {
     $matches = array();
     preg_match_all( '/(?<=\{w\{)(.*?)(?=\}\})/', $content, $matches, PREG_OFFSET_CAPTURE );
@@ -63,13 +76,17 @@ function gs_whmcs_filter( $content ) : string
     return $content;
 }
 
-/**-------------------------------------------------------------------------------------------------
- * display_message()
- * Displays a Success/Error message only on the backend
+/**---------------------------------------------------------------------------------------------------------------------
+ * displayMessage()
+ * Displays a Success/Error/Warning/Info message only on the GS backend
  * 
+ * @param string $message - The message text to be displayed
+ * @param string $type - Message type, one of ['info', 'success', 'warn', 'error']
+ * @param bool $close - Enables a close button to be added to the message
  * @return void
  */
-function gs_whmcs_displayMessage($message = '???', $type = 'info', $close = false) {
+function gs_whmcs_displayMessage( string $message = '???', string $type = 'info', bool $close = false) : void
+{
     if(is_frontend() == false) {
         $removeit = ($close ? ".removeit()" : "");
         $type = ucfirst($type);

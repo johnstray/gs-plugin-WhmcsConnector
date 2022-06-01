@@ -14,25 +14,22 @@ define( 'WHMCSPATH', GSPLUGINPATH . '/' . WHMCSFILE . '/' );
 require_once ( WHMCSFILE . '/common.php' );
 
 # Setup languages and language settings
-# @TODO: Enable localisation of this plugin
-//i18n_merge( WHMCSFILE ) || i18n_merge( WHMCSFILE, "en_US" );
+i18n_merge( WHMCSFILE ) || i18n_merge( WHMCSFILE, "en_US" );
 
 # Register plugin with system
 register_plugin (
-    WHMCSFILE,                                      // Plugin ID
-    "WHMCS Connector",                              // Plugin Title
-    WHMCSVERS,                                      // Plugin Version
-    "John Stray",                                   // Plugin Author
-    "",                                             // Plugin Author URL
-    "Connects a WHMCS installation to GetSimple" .  // Plugin Description
-    "to allow the fetching of information for" .
-    "display on the website.",
-    'settings',                                     // Where the settings page sits
-    'gs_whmcs_main'                          // Main controller function
+    WHMCSFILE,                                                  // Plugin ID
+    i18n_r(WHMCSFILE . '/PLUGIN_NAME'),                         // Plugin Title
+    WHMCSVERS,                                                  // Plugin Version
+    "John Stray",                                               // Plugin Author
+    "https://www.johnstray.id.au/get-simple/plugins/gs-whmcs/", // Plugin Author URL
+    i18n_r(WHMCSFILE . '/PLUGIN_DESC'),                         // Plugin Description
+    'settings',                                                 // Where the settings page sits
+    'gs_whmcs_main'                                             // Main controller function
 );
 
 # Tab / Sidebar Actions
-add_action( 'settings-sidebar', 'createSideMenu', array(WHMCSFILE, "WHMCS Connector Settings") );
+add_action( 'settings-sidebar', 'createSideMenu', array(WHMCSFILE, i18n_r(WHMCSFILE . '/SIDEBAR_BUTTON')) );
 
 # Filters
 add_filter( 'content', 'whmcs_connector_filter' );

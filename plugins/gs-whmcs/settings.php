@@ -6,7 +6,13 @@
  * Author: John Stray
  */
 
-function gs_whmcs_settings()
+/**---------------------------------------------------------------------------------------------------------------------
+ * settings()
+ * Description
+ * 
+ * @return void
+ */
+function gs_whmcs_settings () : void
 {
     $defaultSettings = array(
         'apiurl' => '',
@@ -15,41 +21,41 @@ function gs_whmcs_settings()
     );
     
     if ( file_exists(WHMCSSETTINGS) == false ) {
-        # Create the settings file
+        // Create the settings file
         if ( gs_whmcs_saveSettings( $defaultSettings ) == false ) {
-            // @TODO: Handle a return of false here
-            gs_whmcs_displayMessage( 'Could not create settings file' );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_CREATE_ERROR'), 'error' );
         } else {
-            gs_whmcs_displayMessage( 'Created Settings File' );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_CREATE_OK') );
         }
     }
     
-    # Load the settings file
+    // Load the settings file
+    $updateSettings = false;
     $savedSettings = gs_whmcs_getSettings();
     if ( count($savedSettings) == 0 ) {
-        // @TODO: Handle empty settings array here, something went wrong getting them.
+        gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_UNDEFINED') );
+        $updateSettings = true;
     }
-    $updateSettings = false;
     
-    # Check for missing settings
+    // Check for missing settings
     $missingSettings = array_diff_key( $defaultSettings, $savedSettings );
     if ( count($missingSettings) > 0 ) {
         foreach ( $missingSettings as $key => $value ) {
             $savedSettings[$key] = $value;
         } $updateSettings = true;
-        gs_whmcs_displayMessage( 'Added missing settings values' );
+        gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_UPDATE_ADDED'), 'info' );
     }
     
-    # Check for redundant settings
+    // Check for redundant settings
     foreach ( $savedSettings as $key => $value ) {
         if ( array_key_exists($key, $defaultSettings) == false ) {
             unset( $savedSettings[$key] );
             $updateSettings = true;
-            gs_whmcs_displayMessage( 'Redundant setting found' );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_UPDATE_REMOVE'), 'info' );
         }
     }
     
-    # Check for settings being saved
+    // Check for settings being saved
     foreach ( $savedSettings as $key => $value ) {
         if ( isset($_POST[$key]) ) {
             // @TODO: Sanitize the POST input here
@@ -58,22 +64,28 @@ function gs_whmcs_settings()
         }
     }
     
-    # Write settings to file after update
+    // Write settings to file after update
     if ( $updateSettings == true ) {
-        // @TODO: Add error handling here
         if ( gs_whmcs_saveSettings( $savedSettings ) ) {
-            gs_whmcs_displayMessage( 'Settings saved' );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_SAVE_OK') );
         } else {
-            gs_whmcs_displayMessage( 'Could not save settings', 'error' );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_SAVE_ERROR'), 'error' );
         }
     }
     
-    # Include the settings HTML Page file
+    // Include the settings HTML Page file
     require( WHMCSPATH . 'includes/settings.inc.php');
     
 }
 
-function gs_whmcs_saveSettings ( $settings = array() ) : bool
+/**---------------------------------------------------------------------------------------------------------------------
+ * saveSettings()
+ * Description
+ * 
+ * @param array $settings - An array of setting to be saved to the settings file
+ * @return bool $success - True if the settings file was saved successfully, otherwise False
+ */
+function gs_whmcs_saveSettings ( array $settings = array() ) : bool
 {
     $xml = new SimpleXMLExtended('<?xml version="1.0"?><settings></settings>');
     foreach ( $settings as $key => $value ) {
@@ -86,11 +98,21 @@ function gs_whmcs_saveSettings ( $settings = array() ) : bool
     return false;
 }
 
+/**---------------------------------------------------------------------------------------------------------------------
+ * getSettings()
+ * Description
+ * 
+ * @return array $settings - An array of currently configured settings as found in the settings file
+ */
 function gs_whmcs_getSettings () : array
 {
     $settings = array();
     
-    $settingsData = getXML(WHMCSSETTINGS); // @TODO: Add error handling here
+    $settingsData = getXML(WHMCSSETTINGS);
+    if ( $settingsData == false || empty($settingsData) ) {
+        die( i18n_r(WHMCSFILE . '/SETTINGS_GET_ERROR') );
+    }
+    
     $settingsData = json_decode(json_encode($settingsData), true);
     foreach ( $settingsData as $setting => $value ) {
         if ( empty($value) ) {
