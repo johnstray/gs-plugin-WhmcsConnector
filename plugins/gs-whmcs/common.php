@@ -15,7 +15,7 @@ define( 'WHMCSSETTINGS', GSDATAOTHERPATH . 'whmcsconnector.xml' );
  * 
  * @return void
  */
-function gs_whmcs_main() : void
+function gs_whmcs_main () : void
 {
     // Load the settings page
     require_once( WHMCSPATH . 'settings.php' );
@@ -29,7 +29,7 @@ function gs_whmcs_main() : void
  * @param string $content - The input page content to be filtered
  * @return string $content - Filtered content with special tags replaced with plugin content
  */
-function gs_whmcs_filter( string $content ) : string
+function gs_whmcs_filter ( string $content ) : string
 {
     $matches = array();
     preg_match_all( '/(?<=\{w\{)(.*?)(?=\}\})/', $content, $matches, PREG_OFFSET_CAPTURE );
@@ -53,7 +53,7 @@ function gs_whmcs_filter( string $content ) : string
             }
             
             // Bring in the API
-            require_once( 'api.php' );
+            require_once( WHMCSPATH . 'api.php' );
             
             // Build the replacement content
             $replace = ''; # NOTE: Functions must fill this variable
@@ -82,20 +82,49 @@ function gs_whmcs_filter( string $content ) : string
  * 
  * @return array $testConnect - Array containing connectivity status and whmcs information.
  */
-function gs_whmcs_testConnect() : array
+function gs_whmcs_testConnect () : array
 {
     $testConnect = array( 'result' => "failed" );
     
     // We'll require the API for this, let's bring that in
-    require_once( 'api.php' );
+    require_once( WHMCSPATH . 'api.php' );
+    
+    // Import the settings
+    require_once( WHMCSPATH . 'settings.php' );
+    $settings = gs_whmcs_getSettings();
+    
+    // Validate the settings
+    if ( count($settings) < 3 ) {
+        $testConnect['status'] = i18n_r(WHMCSFILE . '/SETTINGS_MISSING');
+        return $testConnect;
+    } else {
+        if ( isset($settings['apikey']) == false || empty($settings['apikey']) ) {
+            $testConnect['status'] = i18n_r(WHMCSFILE . '/API_KEY_INVALID');
+            return $testConnect;
+        }
+        if ( isset($settings['apisecret']) == false || empty($settings['apisecret']) ) {
+            $testConnect['status'] = i18n_r(WHMCSFILE . '/API_SECRET_INVALID');
+            return $testConnect;
+        }
+        if ( isset($settings['apiurl']) == false || empty($settings['apiurl']) ) {
+            $testConnect['status'] = i18n_r(WHMCSFILE . '/API_URL_INVALID');
+            return $testConnect;
+        }
+    }
     
     // Test for Version config value
     $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "Version"] );
     if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
-        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) )
+        if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
             $testConnect['whmcs']['version'] = $apiCallResult['value'];
+        } else {
+            $testConnect['status'] = $apiCallResult['message'];
+            return $testConnect;
         }
+    } else {
+        $testConnect['status'] = i18n_r(WHMCSFILE . '/UI_TC_TEST_FAILED');
+        return $testConnect;
     }
     
     // Test for SystemURL Config Value
@@ -104,7 +133,13 @@ function gs_whmcs_testConnect() : array
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
             $testConnect['whmcs']['system_url'] = $apiCallResult['value'];
+        } else {
+            $testConnect['status'] = $apiCallResult['message'];
+            return $testConnect;
         }
+    } else {
+        $testConnect['status'] = i18n_r(WHMCSFILE . '/UI_TC_TEST_FAILED');
+        return $testConnect;
     }
     
     // Test for MaintenanceMode config value
@@ -113,7 +148,13 @@ function gs_whmcs_testConnect() : array
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
             $testConnect['whmcs']['maintenance_mode'] = $apiCallResult['value'];
+        } else {
+            $testConnect['status'] = $apiCallResult['message'];
+            return $testConnect;
         }
+    } else {
+        $testConnect['status'] = i18n_r(WHMCSFILE . '/UI_TC_TEST_FAILED');
+        return $testConnect;
     }
     
     // Test for CompanyName config value
@@ -122,7 +163,13 @@ function gs_whmcs_testConnect() : array
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
             $testConnect['whmcs']['company_name'] = $apiCallResult['value'];
+        } else {
+            $testConnect['status'] = $apiCallResult['message'];
+            return $testConnect;
         }
+    } else {
+        $testConnect['status'] = i18n_r(WHMCSFILE . '/UI_TC_TEST_FAILED');
+        return $testConnect;
     }
     
     // Test for LogoURL Config Value
@@ -131,7 +178,13 @@ function gs_whmcs_testConnect() : array
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
             $testConnect['whmcs']['logo_url'] = $apiCallResult['value'];
+        } else {
+            $testConnect['status'] = $apiCallResult['message'];
+            return $testConnect;
         }
+    } else {
+        $testConnect['status'] = i18n_r(WHMCSFILE . '/UI_TC_TEST_FAILED');
+        return $testConnect;
     }
     
     return $testConnect;
@@ -146,7 +199,7 @@ function gs_whmcs_testConnect() : array
  * @param bool $close - Enables a close button to be added to the message
  * @return void
  */
-function gs_whmcs_displayMessage( string $message = '???', string $type = 'info', bool $close = false) : void
+function gs_whmcs_displayMessage ( string $message = '???', string $type = 'info', bool $close = false) : void
 {
     if(is_frontend() == false) {
         $removeit = ($close ? ".removeit()" : "");

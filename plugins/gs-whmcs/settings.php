@@ -25,7 +25,7 @@ function gs_whmcs_settings () : void
         if ( gs_whmcs_saveSettings( $defaultSettings ) == false ) {
             gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_CREATE_ERROR'), 'error' );
         } else {
-            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_CREATE_OK') );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_CREATE_OK'), 'success' );
         }
     }
     
@@ -33,7 +33,7 @@ function gs_whmcs_settings () : void
     $updateSettings = false;
     $savedSettings = gs_whmcs_getSettings();
     if ( count($savedSettings) == 0 ) {
-        gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_UNDEFINED') );
+        gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_UNDEFINED'), 'info' );
         $updateSettings = true;
     }
     
@@ -67,7 +67,7 @@ function gs_whmcs_settings () : void
     // Write settings to file after update
     if ( $updateSettings == true ) {
         if ( gs_whmcs_saveSettings( $savedSettings ) ) {
-            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_SAVE_OK') );
+            gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_SAVE_OK'), 'success' );
         } else {
             gs_whmcs_displayMessage( i18n_r(WHMCSFILE . '/SETTINGS_SAVE_ERROR'), 'error' );
         }

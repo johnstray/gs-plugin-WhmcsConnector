@@ -31,10 +31,10 @@ $i18n = array (
     'CURL_ERROR' => "A cURL error occurred: ",
     
     # Settings UI
-    'UI_PAGE_TITLE' => "WHMCS API Connector Settings",
+    'UI_PAGE_TITLE' => "WHMCS API Settings",
     'UI_PAGE_INTRO' => "Fill out the settings fields below with the relevant details. You will need your API credentials for your WHMCS installation.",
     'UI_APIURL_LABEL' => "WHMCS API URL",
-    'UI_APIURL_HINT' => "The URL of a WHMCS installation to which this plugin will connect to and communicate with.",
+    'UI_APIURL_HINT' => "The URL of a WHMCS installation to connect to",
     'UI_APIKEY_LABEL' => "WHMCS API Key",
     'UI_APIKEY_HINT' => "Your API Key as defined within the WHMCS installation",
     'UI_APISECRET_LABEL' => "WHMCS API Secret",
@@ -52,5 +52,6 @@ $i18n = array (
     'UI_TC_MAINTENANCE_MODE_LABEL' => "Maintenance Mode",
     'UI_TC_ACCESS_BUTTON' => "Go to WHMCS instance",
     'UI_TC_ACCESS_BUTTON_HINT' => "Visit the site of the configured WHMCS instance",
+    'UI_TC_TEST_FAILED' => "Something went wrong while trying to comunicate with the remote server.",
     
 );

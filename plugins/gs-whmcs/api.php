@@ -17,7 +17,7 @@ function gs_whmcs_api ( string $command, array $params = array() ) : array
     $results = array();
     
     // Import the settings
-    require_once( 'settings.php' );
+    require_once( WHMCSPATH . 'settings.php' );
     $settings = gs_whmcs_getSettings();
     
     // Validate the settings

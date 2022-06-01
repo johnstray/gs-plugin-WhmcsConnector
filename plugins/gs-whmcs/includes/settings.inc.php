@@ -35,22 +35,25 @@
         </p>
     </div>
     
-    <div class="rightsec" id="gs_whmcs_ui_tc_instance-info">
+    <div class="rightsec" id="gs_whmcs_ui_tc_instance-info" style="text-align:center;">
         <?php if ( isset($_GET['testConnect']) ) { ?>
             <?php $testConnect = gs_whmcs_testConnect(); ?>
             <?php if ( $testConnect['result'] == "success" ) { ?>
-                <p class="gs_whmcs_ui_tc_connect-success"><?php i18n(WHMCSFILE . '/UI_TC_CONNECT_OK_LABEL'); ?></p>
-                <img class="gs_whmcs_ui_tc_logo" src="" alt="<?php echo i18n_r(WHMCSFILE . '/UI_TC_LOGO_PREALT') . $testConnect['company_name']; ?>" />
-                <p class="gs_whmcs_ui_tc_company-name"><?php echo $testConnect['company_name']; ?></p>
-                <p class="gs_whmcs_ui_tc_version"><?php i18n(WHMCSFILE . '/UI_TC_VERSION_LABEL'); ?>: <?php echo $testConnect['version']; ?></p>
+                <p class="gs_whmcs_ui_tc_connect-success" style="color:darkgreen;"><i><?php i18n(WHMCSFILE . '/UI_TC_CONNECT_OK_LABEL'); ?></i></p>
+                <img class="gs_whmcs_ui_tc_logo" src="<?php echo $testConnect['whmcs']['logo_url']; ?>" alt="<?php echo i18n_r(WHMCSFILE . '/UI_TC_LOGO_PREALT') . $testConnect['whmcs']['company_name']; ?>" style="max-height:50px;margin:10px 0;" />
+                <h3 class="gs_whmcs_ui_tc_company-name" style="margin-bottom:0;"><?php echo $testConnect['whmcs']['company_name']; ?></h3>
+                <p class="gs_whmcs_ui_tc_version" style="margin-bottom:0;"><?php i18n(WHMCSFILE . '/UI_TC_VERSION_LABEL'); ?>: <?php echo $testConnect['whmcs']['version']; ?></p>
                 <p class="gs_whmcs_ui_tc_maintenance-mode">
-                    <?php i18n(WHMCSFILE . '/UI_TC_MAINTENANCE_MODE_LABEL'); ?>: Unknown
+                    <i><?php i18n(WHMCSFILE . '/UI_TC_MAINTENANCE_MODE_LABEL'); ?>: <?php echo $testConnect['whmcs']['maintenance_mode']; ?></i>
                 </p>
-                <a class="gs_whmcs_ui_tc_access-button" href="<?php echo $testConnect['system_url']; ?>" title="<?php i18n(WHMCSFILE . '/UI_TC_ACCESS_BUTTON_HINT'); ?>">
+                <a class="gs_whmcs_ui_tc_access-button" href="<?php echo $testConnect['whmcs']['system_url']; ?>" title="<?php i18n(WHMCSFILE . '/UI_TC_ACCESS_BUTTON_HINT'); ?>">
                     <?php i18n(WHMCSFILE . '/UI_TC_ACCESS_BUTTON'); ?>
                 </a>
             <?php } else { ?>
-                <p class="gs_whmcs_ui_tc_connect-failed"><?php i18n(WHMCSFILE . '/UI_TC_CONNECT_FAIL_LABEL'); ?>
+                <p class="gs_whmcs_ui_tc_connect-failed" style="color:darkred;"><i><?php i18n(WHMCSFILE . '/UI_TC_CONNECT_FAIL_LABEL'); ?></i></p>
+                <?php if ( isset($testConnect['status']) ) { ?>
+                    <p><?php echo $testConnect['status']; ?></p>
+                <?php } ?>
             <?php } ?>
         <?php } ?>
     </div>
