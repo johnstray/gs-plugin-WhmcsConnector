@@ -1,4 +1,4 @@
-<?php if ( defined('IN_GS') === false ) { die( 'You cannot lod this file directly!' ); }
+<?php if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); }
 /**
  * Plugin Name: WHMCS Connector
  * Description: Connects a WHMCS installation to GetSimple to allow the fetching of information.
@@ -11,7 +11,7 @@ $i18n = array (
     # General Information
     'PLUGIN_NAME' => "WHMCS API Connector",
     'PLUGIN_DESC' => "Connects a WHMCS installation to GetSimple to allow the fetching of information for display on the website.",
-    'SIDEBAR_BUTTON' => "WHMCS API Connector Settings",
+    'SIDEBAR_BUTTON' => "WHMCS API Settings",
     
     # Error Messages
     'SETTINGS_CREATE_OK' => "Successfully created a settings file with default settings.",
@@ -31,7 +31,7 @@ $i18n = array (
     'CURL_ERROR' => "A cURL error occurred: ",
     
     # Settings UI
-    'UI_PAGE_TITLE' => "WHMCS API Settings",
+    'UI_PAGE_TITLE' => "WHMCS API Connector Settings",
     'UI_PAGE_INTRO' => "Fill out the settings fields below with the relevant details. You will need your API credentials for your WHMCS installation.",
     'UI_APIURL_LABEL' => "WHMCS API URL",
     'UI_APIURL_HINT' => "The URL of a WHMCS installation to connect to",

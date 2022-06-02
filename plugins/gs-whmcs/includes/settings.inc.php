@@ -1,4 +1,4 @@
-<?php if ( defined('IN_GS') === false ) { die( 'You cannot lod this file directly!' ); }
+<?php if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); }
 /**
  * Plugin Name: WHMCS Connector
  * Description: Connects a WHMCS installation to GetSimple to allow the fetching of information.

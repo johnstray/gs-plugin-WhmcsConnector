@@ -32,4 +32,8 @@ register_plugin (
 add_action( 'settings-sidebar', 'createSideMenu', array(WHMCSFILE, i18n_r(WHMCSFILE . '/SIDEBAR_BUTTON')) );
 
 # Filters
-add_filter( 'content', 'whmcs_connector_filter' );
+add_filter( 'content', 'gs_whmcs_filter' );
+
+# Register / Queue Stylesheets
+register_style( WHMCSFILE . '_css', $SITEURL . '/plugins/' . WHMCSFILE . '/includes/css/admin_styles.css', '1.1', 'screen' );
+queue_style( WHMCSFILE . '_css', GSBACK );
