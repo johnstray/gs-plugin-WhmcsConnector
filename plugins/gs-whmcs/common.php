@@ -39,7 +39,7 @@ function gs_whmcs ( string $action, array $arguments = array(), bool $echo = tru
         $filter = $action;
     }
     
-    $output = gs_whmcs_filter( '{w{' . $filter . '}}' )
+    $output = gs_whmcs_filter( '{w{' . $filter . '}}' );
     
     if ( $echo ) { echo $output; }
     return  $output;
@@ -64,7 +64,9 @@ function gs_whmcs_filter ( string $content ) : string
             // Figure out the action and parameters
             $action = explode('|', $match[0]);
             $function = $action[0];
-            $arguments = explode(',', $action[1]);
+            if ( isset($action[1]) ) {
+                $arguments = explode(',', $action[1]);
+            } else { $arguments = array(); }
             
             // What API functions are supported?
             $apiFunctionFiles = glob(__DIR__ . '/functions/*.php');
