@@ -59,6 +59,10 @@
     </div>
     <div class="clear"></div>
     
+    <?php if ( gs_whmcs_blogExists() ) {
+        include ( WHMCSPATH . 'includes/announcements.inc.php' );
+    } ?>
+    
     <div class="saveButtonZone">
         <span><button class="submit" type="submit"><?php i18n(WHMCSFILE . '/UI_SAVE_BUTTON'); ?></button></span>
         &nbsp;&nbsp;or&nbsp;&nbsp;

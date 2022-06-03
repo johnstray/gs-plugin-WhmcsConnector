@@ -1,15 +1,56 @@
+/* Announcement Import Settings Section */
+.gs_whmcs_ui_ai_container {
+    padding-bottom: 20px;
+}
+
+.gs_whmcs_ui_ai_hline {
+    border: none;
+    border-top: 1px solid #e3e3e3;
+    margin: 0 0 20px;
+}
+
+.gs_whmcs_ui_ai_title-sect {
+    margin-bottom: 20px;
+}
+
+.gs_whmcs_ui_ai_title {
+    margin: 0;
+    padding: 0;
+    float: left;
+    display: block;
+    font-size: 18px;
+    color: cadetblue;
+    line-height: 20px;
+}
+
+.gs_whmcs_ui_ai_enable {
+    float: right;
+    font-size: 11px;
+    margin: 0;
+    line-height: 20px;
+}
+
+.gs_whmcs_ui_ai_enable input[type="checkbox"] {
+    vertical-align: middle;
+}
+
+.gs_whmcs_ui_ai_enable label {
+    display: inline;
+}
+
+/* Copyright Text below display area */
 .gs_whmcs_ui_copyright-text {
-  text-shadow: 1px 1px 0 rgba(255,255,255,.4);
-  margin: -30px 250px 0 0;
-  padding: 10px 0 0;
-  font-size: 11px;
-  color: #999;
-  text-align: center;
+    text-shadow: 1px 1px 0 rgba(255,255,255,.4);
+    margin: -30px 250px 0 0;
+    padding: 10px 0 0;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
 }
 .gs_whmcs_ui_copyright-text div {
-  font-size:10px;
+    font-size:10px;
 }
 .gs_whmcs_ui_copyright-text a {
-  color:#888 !important;
-  text-decoration:none !important;
+    color:#888 !important;
+    text-decoration:none !important;
 }

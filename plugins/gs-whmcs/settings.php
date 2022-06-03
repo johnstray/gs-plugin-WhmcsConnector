@@ -57,10 +57,15 @@ function gs_whmcs_settings () : void
     
     // Check for settings being saved
     foreach ( $savedSettings as $key => $value ) {
-        if ( isset($_POST[$key]) ) {
-            // @TODO: Sanitize the POST input here
-            $savedSettings[$key] = $_POST[$key];
-            $updateSettings = true;
+        if ( empty($_POST) === false ) {
+            if ( isset($_POST[$key]) ) {
+                // @TODO: Sanitize the POST input here
+                $savedSettings[$key] = $_POST[$key];
+                $updateSettings = true;
+            } elseif ( !isset($_POST['blogenable']) ) {
+                $savedSettings['blogenable'] = 'off';
+                $updateSettings = true;
+            }
         }
     }
     
@@ -123,4 +128,38 @@ function gs_whmcs_getSettings () : array
     }
     
     return $settings;
+}
+
+/**---------------------------------------------------------------------------------------------------------------------
+ * getBlogCategories()
+ * Gets a list of categories from GetSimple Blog and returns them formatted for use in a HTML Select element.
+ * 
+ * @param string $selected - The currently selected category
+ * @return string $category_options - List of categories formatted for a HTML Select element.
+ */
+function gs_whmcs_getBlogCategories( string $selected = '' ) : string
+{
+    if ( defined('BLOGCATEGORYFILE') ) {
+        $categories = getXML(BLOGCATEGORYFILE);
+    } else {
+        // @TODO: Handle not having a defined category file
+        $categories = null;
+    }
+    
+    $category_options = "";
+    
+    if ( empty($categories) === false && count($categories) > 0 ) {
+        foreach ( $categories->category as $category ) {
+            $category = (string) $category;
+            if ( $category == $selected ) {
+                $category_options .= '<option value="' . $category . '" selected>' . $category . '</option>';
+            } else {
+                $category_options .= '<option value="' . $category . '">' . $category . '</option>';
+            }
+        }
+    } else {
+        $category_options .= '<option value="">----- No Categories Found -----</option>';
+    }
+    
+    return $category_options;
 }
