@@ -22,6 +22,29 @@ function gs_whmcs_main () : void
     gs_whmcs_settings();
 }
 
+/**
+ * gs_whmcs()
+ * A function that can be used in theme templates to return/output the filter result without needing to actually
+ * filter the content variable
+ * 
+ * @param string $action - The API action to perform
+ * @param array $arguments - An array of arguments to pass to the API call
+ * @param bool $echo - Weather to echo out the resulting content
+ */
+function gs_whmcs ( string $action, array $arguments = array(), bool $echo = true ) : string
+{
+    if ( count($arguments) > 0 ) {
+        $filter = $action . '|' . implode(',', $arguments);
+    } else {
+        $filter = $action;
+    }
+    
+    $output = gs_whmcs_filter( '{w{' . $filter . '}}' )
+    
+    if ( $echo ) { echo $output; }
+    return  $output;
+}
+
 /**---------------------------------------------------------------------------------------------------------------------
  * filter()
  * Filters the page output content, looking for special tags that will then be replaced by a function's output
