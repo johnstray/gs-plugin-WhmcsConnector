@@ -113,7 +113,7 @@ function gs_whmcs_testConnect () : array
     }
     
     // Test for Version config value
-    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "Version"] );
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "Version"], true );
     if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
@@ -128,7 +128,7 @@ function gs_whmcs_testConnect () : array
     }
     
     // Test for SystemURL Config Value
-    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "SystemURL"] );
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "SystemURL"], true );
     if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
@@ -143,7 +143,7 @@ function gs_whmcs_testConnect () : array
     }
     
     // Test for MaintenanceMode config value
-    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "MaintenanceMode"] );
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "MaintenanceMode"], true );
     if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
@@ -158,7 +158,7 @@ function gs_whmcs_testConnect () : array
     }
     
     // Test for CompanyName config value
-    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "CompanyName"] );
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "CompanyName"], true );
     if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
@@ -173,7 +173,7 @@ function gs_whmcs_testConnect () : array
     }
     
     // Test for LogoURL Config Value
-    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "LogoURL"] );
+    $apiCallResult = gs_whmcs_api( 'GetConfigurationValue', ['setting' => "LogoURL"], true );
     if ( is_array($apiCallResult) && count($apiCallResult) > 0 ) {
         if ( $apiCallResult['result'] == "success" && isset($apiCallResult['value']) ) {
             $testConnect['result'] = "success";
