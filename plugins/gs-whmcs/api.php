@@ -8,7 +8,7 @@
 
 /**---------------------------------------------------------------------------------------------------------------------
  * api()
- * Description
+ * The main API calling function. Uses cURL to connect to the WHMCS API endpoint and returns the results as an array
  * 
  * @return array $results - An array containing the results of the API call
  */
@@ -92,6 +92,14 @@ function gs_whmcs_api ( string $command, array $params = array(), bool $ignore_c
     return $results;
 }
 
+/**---------------------------------------------------------------------------------------------------------------------
+ * api_cachePut()
+ * Stores the results of a request in a file in the cache directory, improving performance
+ * 
+ * @param string $request_id - The identifier of the request, eg. the request URI
+ * @param string $api_response - The response from the api call to store in the cache
+ * @return bool $success - True if the cache item was successfully saved, false otherwise
+ */
 function gs_whmcs_api_cachePut ( string $request_id, string $api_response ) : bool
 {
     // Check if cache enable constant is set in gsconfig.php, define it to on if it's not
@@ -135,6 +143,13 @@ function gs_whmcs_api_cachePut ( string $request_id, string $api_response ) : bo
     return false;
 }
 
+/**---------------------------------------------------------------------------------------------------------------------
+ * api_cacheGet()
+ * Retrieves a cached request from the cache, returning the content of the original request
+ * 
+ * @param string $request_id - The identifier of the request, eg. the request URI
+ * @return array $cache_content - The content of the original request that was cached
+ */
 function gs_whmcs_api_cacheGet ( string $request_id ) : string
 {
     // Check if the cache enable constant is set in gsconfig.php, define it to on if it's not
@@ -174,3 +189,4 @@ function gs_whmcs_api_cacheGet ( string $request_id ) : string
     
     return base64_decode($cache_content);
 }
+

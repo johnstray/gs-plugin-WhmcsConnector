@@ -6,11 +6,9 @@
  * Author: John Stray
  */
 
-//@TODO: Refactor this for the default Innovation theme
-
-$getProducts = gs_whmcs_api( 'GetProducts', ['gid'=>'1'] );
-$products = $getProducts['products']['product'];
-ob_start(); ?>
+// @TODO: Refactor this to work with the default Innovation theme
+// @TODO: Add the Output Variable reference in a comment
+?>
 
 <div class="plan-navtab">
 
@@ -66,4 +64,3 @@ ob_start(); ?>
     </div>
 </div>
 
-<?php $replace = ob_get_clean(); ?>

@@ -4,7 +4,11 @@
  * Description: Connects a WHMCS installation to GetSimple to allow the fetching of information.
  * Version: 1.0.0-alpha
  * Author: John Stray
- */ ?>
+ */ 
+ 
+// @TODO: Refactor this to work with the default Innovation theme
+// @TODO: Add the Output Variable reference in a comment
+?>
 
 <div class="single-plan-item">
     <div class="plan-header">

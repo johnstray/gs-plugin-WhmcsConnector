@@ -8,7 +8,7 @@
 
 /**---------------------------------------------------------------------------------------------------------------------
  * settings()
- * Description
+ * The Settings Director. Handles things related to settings, passing off to other functions as required.
  * 
  * @return void
  */
@@ -85,7 +85,7 @@ function gs_whmcs_settings () : void
 
 /**---------------------------------------------------------------------------------------------------------------------
  * saveSettings()
- * Description
+ * Saves an array of settings into the settings file.
  * 
  * @param array $settings - An array of setting to be saved to the settings file
  * @return bool $success - True if the settings file was saved successfully, otherwise False
@@ -105,7 +105,7 @@ function gs_whmcs_saveSettings ( array $settings = array() ) : bool
 
 /**---------------------------------------------------------------------------------------------------------------------
  * getSettings()
- * Description
+ * Gets the configuration settings from file and returns them as an array
  * 
  * @return array $settings - An array of currently configured settings as found in the settings file
  */
