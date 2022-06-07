@@ -1,10 +1,15 @@
-<?php if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); }
+<?php
 /**
  * Plugin Name: WHMCS Connector
  * Description: Connects a WHMCS installation to GetSimple to allow the fetching of information.
- * Version: 1.0.0-alpha
- * Author: John Stray
- */ ?>
+ * 
+ * @package: gs-WhmcsConnector
+ * @version: 1.0.0-alpha
+ * @author: John Stray <getsimple@johnstray.com>
+ */
+
+# Prevent impropper loading of this file. Must be loaded via GetSimple's plugin interface
+if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); } ?>
 
 <h3 class="floated" style="float:left;"><?php i18n(WHMCSFILE . '/UI_PAGE_TITLE'); ?></h3>
 <div class="edit-nav">
@@ -37,7 +42,6 @@
     
     <div class="rightsec" id="gs_whmcs_ui_tc_instance-info" style="text-align:center;">
         <?php if ( isset($_GET['testConnect']) ) { ?>
-            <?php $testConnect = gs_whmcs_testConnect(); ?>
             <?php if ( $testConnect['result'] == "success" ) { ?>
                 <p class="gs_whmcs_ui_tc_connect-success" style="color:darkgreen;"><i><?php i18n(WHMCSFILE . '/UI_TC_CONNECT_OK_LABEL'); ?></i></p>
                 <img class="gs_whmcs_ui_tc_logo" src="<?php echo $testConnect['whmcs']['logo_url']; ?>" alt="<?php echo i18n_r(WHMCSFILE . '/UI_TC_LOGO_PREALT') . $testConnect['whmcs']['company_name']; ?>" style="max-height:50px;margin:10px 0;" />
@@ -59,8 +63,8 @@
     </div>
     <div class="clear"></div>
     
-    <?php if ( gs_whmcs_blogExists() ) {
-        include ( WHMCSPATH . 'includes/announcements.inc.php' );
+    <?php if ( $blogExists ) {
+        include ( WHMCSPATH . 'includes/html/announcements.inc.php' );
     } ?>
     
     <div class="saveButtonZone">

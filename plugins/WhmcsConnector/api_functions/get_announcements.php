@@ -1,12 +1,17 @@
-<?php if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); }
+<?php
 /**
  * Plugin Name: WHMCS Connector
  * Description: Connects a WHMCS installation to GetSimple to allow the fetching of information.
- * Version: 1.0.0-alpha
- * Author: John Stray
+ * 
+ * @package: gs-WhmcsConnector
+ * @version: 1.0.0-alpha
+ * @author: John Stray <getsimple@johnstray.com>
  */
 
-// Find an announcement in in the array of arguments
+# Prevent impropper loading of this file. Must be loaded via GetSimple's plugin interface
+if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); }
+
+// Find an announcement id in the array of arguments
 $ifaid = array_values(array_filter( $arguments, function($argument) {
     return strpos($argument, 'id-') !== false;
 }));
@@ -31,7 +36,7 @@ if ( $announcement_id !== null ) {
     // Get the array for the post we are going to show
     // Large limit given here in the hopes that the announcement we want will be returned.
     // Probably not the most efficient, but probably the best we can manage
-    $announcements = gs_whmcs_api( 'GetAnnouncements', ['limitstart'=>0, 'limitnum'=>65536], true );
+    $announcements = $this->apiCall( 'GetAnnouncements', ['limitstart'=>0, 'limitnum'=>65536], true );
     
     if ( empty($announcements) === false && $announcements['result'] == 'success' ) {
     
@@ -65,7 +70,7 @@ if ( $announcement_id !== null ) {
 } else {
     
     // Get an array of announcements from the api
-    $announcements = gs_whmcs_api( 'GetAnnouncements', ['limitstart'=>$limit_start, 'limitnum'=>$limit_num], true );
+    $announcements = $this->apiCall( 'GetAnnouncements', ['limitstart'=>$limit_start, 'limitnum'=>$limit_num], true );
     
     if ( empty($announcements) === false && $announcements['result'] == 'success' ) {
         $announcements = $announcements['announcements']['announcement'];

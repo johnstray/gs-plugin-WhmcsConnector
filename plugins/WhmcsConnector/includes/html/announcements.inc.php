@@ -1,10 +1,15 @@
-<?php if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); }
+<?php
 /**
  * Plugin Name: WHMCS Connector
  * Description: Connects a WHMCS installation to GetSimple to allow the fetching of information.
- * Version: 1.0.0-alpha
- * Author: John Stray
- */ ?>
+ * 
+ * @package: gs-WhmcsConnector
+ * @version: 1.0.0-alpha
+ * @author: John Stray <getsimple@johnstray.com>
+ */
+
+# Prevent impropper loading of this file. Must be loaded via GetSimple's plugin interface
+if ( defined('IN_GS') === false ) { die( 'You cannot load this file directly!' ); } ?>
 
         <div class="widesec gs_whmcs_ui_ai_container">
             <hr class="gs_whmcs_ui_ai_hline" />
@@ -29,7 +34,7 @@
                     <select class="text" name="blogcategory">
                         <option value="">--- None ---</option>
                         <optgroup label="Blog Categories">
-                            <?php echo gs_whmcs_getBlogCategories($savedSettings['blogcategory']); ?>
+                            <?php echo $BlogImporter->getBlogCategories($savedSettings['blogcategory']); ?>
                         </optgroup>
                     </select>
                 </p>
